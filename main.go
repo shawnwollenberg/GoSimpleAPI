@@ -1,6 +1,7 @@
 package main
 
 import (
+	"MNR_API/shawn"
 	"MNR_API/todo"
 	"log"
 	"net/http"
@@ -22,6 +23,9 @@ func Routes() *chi.Mux {
 	router.Route("/v1", func(r chi.Router) {
 		r.Mount("/api/todo", todo.Routes())
 	})
+	router.Route("/v2", func(r chi.Router) {
+		r.Mount("/api/shawn", shawn.Routes())
+	})
 	return router
 }
 
@@ -32,6 +36,7 @@ func main() {
 
 	walkFunc := func(method string, route string, handler http.Handler, middlewares ...func(http.Handler) http.Handler) error {
 		log.Printf("%s %s\n", method, route)
+
 		return nil
 	}
 	if err := chi.Walk(router, walkFunc); err != nil {

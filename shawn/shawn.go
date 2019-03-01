@@ -1,4 +1,4 @@
-package todo
+package shawn
 
 import (
 	"net/http"
@@ -16,10 +16,7 @@ type Todo struct {
 func Routes() *chi.Mux {
 	router := chi.NewRouter()
 	router.Get("/{todoID}", GetATodo)
-	router.Delete("/{todoID}", DeleteTodo)
-	router.Post("/", CreateTodo)
-	router.Get("/", GetAllTodos)
-	router.Get("/shawn/", GetShawn)
+	router.Get("/", GetShawn)
 	return router
 }
 
@@ -37,26 +34,6 @@ func GetShawn(w http.ResponseWriter, r *http.Request) {
 		Slug:  "Hey Shawn",
 		Title: "Good Test",
 		Body:  "Look at you go shawn",
-	}
-	render.JSON(w, r, todos)
-}
-func DeleteTodo(w http.ResponseWriter, r *http.Request) {
-	response := make(map[string]string)
-	response["message"] = "Deleted TODO Successfully"
-	render.JSON(w, r, response)
-}
-
-func CreateTodo(w http.ResponseWriter, r *http.Request) {
-	response := make(map[string]string)
-	response["message"] = "Created TODO Successfully"
-	render.JSON(w, r, response)
-}
-
-func GetAllTodos(w http.ResponseWriter, r *http.Request) {
-	todos := Todo{
-		Slug:  "slug",
-		Title: "Hello World",
-		Body:  "Hello World from planet Earth",
 	}
 	render.JSON(w, r, todos)
 }
